@@ -1,0 +1,101 @@
+{
+  "br": {
+    "FULL_BODY": ["vestido", "chemise", "macacao", "conjunto", "biquini", "maio", "costume", "macaquinho"],
+    "UPPER_BODY": [
+      "camisa",
+      "blazer",
+      "trench",
+      "cardiga",
+      "casaco",
+      "t-shirt",
+      "blusa",
+      "regata",
+      "capa",
+      "body",
+      "tomara",
+      "top",
+      "parka",
+      "cropped",
+      "sweater",
+      "sweatshirt",
+      "colete",
+      "maxi",
+      "polo"
+    ],
+    "LOWER_BODY": ["pantalona", "calca", "saia", "short", "bermuda", "legging", "bretelle"]
+  },
+  "es": {
+    "FULL_BODY": ["vestido", "mono", "enterizo", "conjunto", "bikini", "biquini"],
+    "UPPER_BODY": [
+      "camisa",
+      "camiseta",
+      "blusa",
+      "chaquetas",
+      "chaqueta",
+      "sudadera",
+      "abrigo",
+      "jersey",
+      "chaleco",
+      "top",
+      "body",
+      "blazer",
+      "cardigan",
+      "parka",
+      "poleras",
+      "polera",
+      "polerones",
+      "cropped",
+      "sweaters",
+      "trench",
+      "capa"
+    ],
+    "LOWER_BODY": ["pantalon", "pantalona", "falda", "short", "bermuda", "legging", "vaquero", "jean"]
+  },
+  "en": {
+    "FULL_BODY": ["dress", "jumpsuit", "gown", "romper", "playsuit", "bikini", "set", "kaftan"],
+    "UPPER_BODY": [
+      "shirt",
+      "tee",
+      "tank",
+      "blouse",
+      "jacket",
+      "hoodie",
+      "sweater",
+      "cardigan",
+      "coat",
+      "blazer",
+      "vest",
+      "top",
+      "bodysuit",
+      "parka",
+      "cropped",
+      "trench",
+      "cami",
+      "polo"
+    ],
+    "LOWER_BODY": ["pants", "trousers", "skirt", "short", "jeans", "legging", "jogger", "chino"]
+  },
+  "it": {
+    "FULL_BODY": ["abito", "vestito", "tuta", "completo", "bikini"],
+    "UPPER_BODY": [
+      "camicia",
+      "maglietta",
+      "maglia",
+      "maglione",
+      "t-shirt",
+      "blusa",
+      "giacca",
+      "felpa",
+      "cardigan",
+      "gilet",
+      "top",
+      "body",
+      "cappotto",
+      "blazer",
+      "parka",
+      "trench",
+      "cropped"
+    ],
+    "LOWER_BODY": ["pantalon", "gonna", "short", "bermuda", "legging", "jean"]
+  }
+}

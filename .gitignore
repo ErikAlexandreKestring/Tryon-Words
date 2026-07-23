@@ -1,0 +1,26 @@
+# Dependências
+node_modules/
+
+# Build
+dist/
+build/
+
+# Variáveis de ambiente / segredos — NUNCA commitar
+.env
+.env.*
+!.env.example
+
+# Credenciais (por segurança, caso alguém as coloque no projeto)
+.aws/
+*.pem
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
