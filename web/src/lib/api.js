@@ -12,6 +12,7 @@ export async function publishToS3(data) {
   if (!ENDPOINT) throw new Error("not-configured");
   const res = await fetch(ENDPOINT, {
     method: "PUT",
+    credentials: "include", // reenvia o login (Basic Auth) mesmo com front/API em domínios diferentes
     headers: {
       "Content-Type": "application/json",
       // Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
@@ -22,10 +23,9 @@ export async function publishToS3(data) {
   return res.json().catch(() => ({}));
 }
 
-// Para a próxima etapa: carregar o JSON atual do S3 ao abrir a página.
 export async function loadFromS3() {
   if (!ENDPOINT) throw new Error("not-configured");
-  const res = await fetch(ENDPOINT, {method: "GET"});
+  const res = await fetch(ENDPOINT, { method: "GET", credentials: "include" });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }

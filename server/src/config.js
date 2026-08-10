@@ -17,4 +17,6 @@ export const config = {
   key: process.env.S3_KEY || "config/category-keywords.json",
   apiToken: process.env.API_TOKEN || "",
   corsOrigin: process.env.CORS_ORIGIN || "*",
+  authUser: process.env.AUTH_USER || "",
+  authPass: process.env.AUTH_PASS || "",
 };

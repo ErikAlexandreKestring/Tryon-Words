@@ -20,7 +20,8 @@
       "sweatshirt",
       "colete",
       "maxi",
-      "polo"
+      "polo",
+      "corset"
     ],
     "LOWER_BODY": ["pantalona", "calca", "saia", "short", "bermuda", "legging", "bretelle"]
   },

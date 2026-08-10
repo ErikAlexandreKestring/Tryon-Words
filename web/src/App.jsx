@@ -15,7 +15,7 @@ export default function App() {
 
       <div className="sb-grid">
         <KeywordEditor data={data} setData={setData} />
-        <JsonPreview data={data} />
+        <JsonPreview data={data} setData={setData} />
       </div>
     </div>
   );

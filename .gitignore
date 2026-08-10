@@ -9,6 +9,8 @@ build/
 .env
 .env.*
 !.env.example
+# Sem segredo (só o caminho relativo da API pro build de produção) — precisa ir pro repo.
+!web/.env.production
 
 # Credenciais (por segurança, caso alguém as coloque no projeto)
 .aws/

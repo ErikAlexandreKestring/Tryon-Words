@@ -36,6 +36,8 @@ Variáveis (`.env`):
 | `S3_KEY`       | Caminho do arquivo (ex.: `config/category-keywords.json`)        |
 | `API_TOKEN`    | Se preenchido, exige `Authorization: Bearer <token>`. Vazio = aberto |
 | `CORS_ORIGIN`  | Origem do frontend permitida (ex.: `http://localhost:5173`)      |
+| `AUTH_USER`    | Usuário do login compartilhado (HTTP Basic Auth). Vazio = aberto |
+| `AUTH_PASS`    | Senha do login compartilhado. Defina junto com `AUTH_USER`      |
 
 ## Credenciais da AWS (sem chaves no repo)
 
@@ -89,3 +91,52 @@ VITE_API_TOKEN=          # só se você setou API_TOKEN no backend
 Roda em qualquer lugar que rode Node: EC2, ECS/Fargate, container, etc.
 O importante é que o ambiente tenha a IAM role com a policy acima — aí o SDK
 pega as credenciais sozinho, sem nenhuma chave no código.
+
+### Login do time (Basic Auth) e servir o frontend junto
+
+Defina `AUTH_USER` e `AUTH_PASS` no `.env` — o servidor passa a exigir login
+(HTTP Basic Auth) em tudo, menos `/health`. Assim, quando `web/dist` existir
+(rode `npm run build` dentro de `web/`), este mesmo servidor já serve o
+frontend estático atrás do mesmo login, sem precisar de outro serviço:
+
+```bash
+cd web && npm run build && cd ../server
+npm start
+```
+
+Abrir `http://localhost:3001` (ou o domínio do deploy) pede usuário/senha uma
+vez no navegador; depois disso as chamadas à API já usam a mesma sessão.
+
+## Deploy grátis: Render (API) + Vercel (frontend)
+
+Aqui o front e a API ficam em domínios diferentes, então usamos a variante
+"separada" (não a combinada acima). Ordem importa por causa do CORS:
+
+1. **Suba a API no Render primeiro:**
+   - New → Web Service → conecte este repositório.
+   - Root Directory: `server`
+   - Build Command: `npm install`
+   - Start Command: `npm start`
+   - Variáveis de ambiente (Render → Environment): `AWS_REGION`, `S3_BUCKET`,
+     `S3_KEY`, `AUTH_USER`, `AUTH_PASS`, e **`AWS_ACCESS_KEY_ID` /
+     `AWS_SECRET_ACCESS_KEY`** (Render não tem IAM role como uma EC2 — sem
+     isso o SDK não acha credencial nenhuma). `CORS_ORIGIN` deixe em branco
+     por enquanto, você volta aqui depois do passo 2.
+   - Deploy. Anote a URL gerada (ex.: `https://tryon-words-api.onrender.com`).
+
+2. **Suba o frontend no Vercel:**
+   - Add New → Project → mesmo repositório.
+   - Root Directory: `web` (framework Vite é detectado sozinho).
+   - Variáveis de ambiente (Vercel → Settings → Environment Variables):
+     - `VITE_PUBLISH_ENDPOINT` = `https://SEU-APP.onrender.com/keywords` (a
+       URL do passo 1)
+     - `AUTH_USER` / `AUTH_PASS` = os mesmos do Render — protegem a própria
+       tela do app via `web/middleware.js` (Edge Middleware, roda no servidor
+       do Vercel, nunca entra no código público)
+   - Deploy. Anote a URL gerada (ex.: `https://tryon-words.vercel.app`).
+
+3. **Volte no Render** e preencha `CORS_ORIGIN` com a URL do Vercel do passo 2
+   (sem barra no final). Isso reinicia o serviço automaticamente.
+
+Pronto: abrir a URL do Vercel já pede login (tela protegida pelo Edge
+Middleware) e o app conversa com a API do Render usando o mesmo usuário/senha.
